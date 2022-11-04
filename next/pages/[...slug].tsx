@@ -3,10 +3,10 @@ import { GetStaticPathsResult, GetStaticPropsResult } from "next"
 import Head from "next/head"
 import { DrupalNode } from "next-drupal"
 
-import { drupal } from "lib/drupal"
-import { NodeArticle } from "components/node--article"
-import { NodeBasicPage } from "components/node--basic-page"
-import { Layout } from "components/layout"
+import { drupal } from "../lib/drupal"
+import { NodeArticle } from "../components/node--article"
+import { NodeBasicPage } from "../components/node--basic-page"
+import { Layout } from "../components/layout"
 
 const RESOURCE_TYPES = ["node--page", "node--article"]
 

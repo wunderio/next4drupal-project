@@ -1,11 +1,11 @@
 import Link from "next/link"
 
-import { PreviewAlert } from "components/preview-alert"
+import { PreviewAlert } from "../components/preview-alert"
 
 export function Layout({ children }) {
   return (
     <>
-      <PreviewAlert />
+
       <div className="max-w-screen-md px-6 mx-auto">
         <header>
           <div className="container flex items-center justify-between py-6 mx-auto">
