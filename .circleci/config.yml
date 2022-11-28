@@ -82,8 +82,8 @@ workflows:
                   next_image_domain=`echo $release_name`.$CLUSTER_DOMAIN
                   echo "export NEXT_PUBLIC_DRUPAL_BASE_URL=https://${next_image_domain}" >> "$BASH_ENV"
                   echo "export NEXT_IMAGE_DOMAIN=${next_image_domain}" >> "$BASH_ENV"
-                  echo "export DRUPAL_CLIENT_SECRET=secret" >> "$BASH_ENV"
-                  echo "export DRUPAL_CLIENT_ID=id_of_the_consumer" >> "$BASH_ENV"
+                  echo "export DRUPAL_CLIENT_SECRET=uj1M/+Ovd88DsvHR2xBXuQE2Z7o=" >> "$BASH_ENV"
+                  echo "export DRUPAL_CLIENT_ID=b7302bd7-f2b6-43b6-ae6f-d1b47c44cf54" >> "$BASH_ENV"
             - silta/npm-install-build:
                 path: next
             - silta/build-docker-image:
