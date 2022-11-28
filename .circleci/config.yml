@@ -32,7 +32,7 @@ workflows:
           drupal-root: drupal
           nginx_build_context: drupal/web
           pre-release:
-            -run: cp -r ~/project/silta ~/project/drupal/
+            - run: cp -r ~/project/silta ~/project/drupal/
           codebase-build:
             - silta/drupal-composer-install
             - silta/npm-install-build
@@ -68,9 +68,6 @@ workflows:
           name: Next build & deploy
           context: silta_dev
           silta_config: silta/silta-next.yml
-          environment:
-            NEXT_PUBLIC_DRUPAL_BASE_URL=https://next4drupal-project.lndo.site
-            NEXT_IMAGE_DOMAIN=next4drupal-project.lndo.site
           codebase-build:
             # npm-install-build command is defined here https://github.com/wunderio/silta-circleci/blob/master/orb/commands/@npm.yml
             - run:
