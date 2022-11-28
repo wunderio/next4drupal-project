@@ -7,6 +7,7 @@ executors:
   cicd81:
     docker:
       - image: wunderio/silta-cicd:circleci-php8.1-node16-composer2-v0.1
+    resource_class: small
 
 workflows:
   version: 2
@@ -15,6 +16,8 @@ workflows:
       - silta/drupal-validate:
           name: validate
           executor: cicd81
+          drupal-root: "drupal"
+          web-root: "drupal/web"
           post-validation:
             - run: echo "You can add additional validation here!"
 
@@ -24,9 +27,10 @@ workflows:
           sources: drupal/web
 
       - silta/drupal-build-deploy: &build-deploy
-          name: build-deploy
+          name: Drupal build & deploy
           executor: cicd81
           drupal-root: drupal
+          nginx_build_context: drupal/web
           codebase-build:
             - silta/drupal-composer-install
             - silta/npm-install-build
@@ -40,7 +44,7 @@ workflows:
       - silta/drupal-build-deploy:
           # Extend the build-deploy configuration for the production environment.
           <<: *build-deploy
-          name: build-deploy-prod
+          name: Drupal build & deploy production
           silta_config: silta/silta.yml,silta/silta-prod.yml
           context: silta_finland
           filters:
@@ -49,7 +53,7 @@ workflows:
 
       - silta/drupal-build-deploy:
           <<: *build-deploy
-          name: build-dependabot
+          name: Drupal build dependabot 
           context: silta_dev
           skip-deployment: true
           filters:
@@ -59,7 +63,7 @@ workflows:
       # silta/frontend-build-deploy is defined here https://github.com/wunderio/silta-circleci/blob/master/orb/jobs/%40frontend.yml
       # &build-deploy is a yaml anchor, so we can reference it later
       - silta/frontend-build-deploy: &frontend-build-deploy
-          name: Silta build & deploy
+          name: Next build & deploy
           context: silta_dev
           silta_config: silta/silta-next.yml
           codebase-build:
@@ -81,7 +85,7 @@ workflows:
       - silta/frontend-build-deploy:
           # Extend the build-deploy configuration for the production environment.
           <<: *frontend-build-deploy
-          name: Silta build & deploy production
+          name: Next build & deploy production
           context: silta_finland
           silta_config: silta/silta-next.yml,silta/silta-next-prod.yml
           filters:
@@ -90,7 +94,7 @@ workflows:
 
       - silta/frontend-build-deploy:
           <<: *frontend-build-deploy
-          name: Build Dependabot
+          name: Next Build Dependabot
           context: silta_dev
           skip-deployment: true
           filters:
