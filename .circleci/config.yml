@@ -4,9 +4,9 @@ orbs:
   silta: silta/silta@0.1
 
 executors:
-  cicd80:
+  cicd81:
     docker:
-      - image: wunderio/silta-cicd:circleci-php8.0-node16-composer2-v0.1
+      - image: wunderio/silta-cicd:circleci-php8.1-node16-composer2-v0.1
 
 workflows:
   version: 2
@@ -14,18 +14,19 @@ workflows:
     jobs:
       - silta/drupal-validate:
           name: validate
-          executor: cicd80
+          executor: cicd81
           post-validation:
             - run: echo "You can add additional validation here!"
 
       - silta/analyze:
           name: analyze
           context: analyze
-          sources: web
+          sources: drupal/web
 
       - silta/drupal-build-deploy: &build-deploy
           name: build-deploy
-          executor: cicd80
+          executor: cicd81
+          drupal-root: drupal
           codebase-build:
             - silta/drupal-composer-install
             - silta/npm-install-build
@@ -60,10 +61,16 @@ workflows:
       - silta/frontend-build-deploy: &frontend-build-deploy
           name: Silta build & deploy
           context: silta_dev
-          silta_config: silta/silta.yml
+          silta_config: silta/silta-next.yml
           codebase-build:
             # npm-install-build command is defined here https://github.com/wunderio/silta-circleci/blob/master/orb/commands/@npm.yml
-            - silta/npm-install-build
+            - silta/npm-install-build:
+                path: next
+            - silta/build-docker-image:
+                dockerfile: 'silta/node.Dockerfile'
+                path: './next'
+                identifier: 'next '
+                docker-hash-prefix: v1
           filters:
             branches:
               ignore:
@@ -76,7 +83,7 @@ workflows:
           <<: *frontend-build-deploy
           name: Silta build & deploy production
           context: silta_finland
-          silta_config: silta/silta.yml,silta/silta-prod.yml
+          silta_config: silta/silta-next.yml,silta/silta-next-prod.yml
           filters:
             branches:
               only: production
