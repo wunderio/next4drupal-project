@@ -31,7 +31,7 @@ workflows:
           executor: cicd81
           drupal-root: drupal
           nginx_build_context: drupal/web
-          pre-validation:
+          pre-release:
             -run: cp -r ~/project/silta ~/project/drupal/
           codebase-build:
             - silta/drupal-composer-install
