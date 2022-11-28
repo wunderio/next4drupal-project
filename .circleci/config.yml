@@ -31,6 +31,8 @@ workflows:
           executor: cicd81
           drupal-root: drupal
           nginx_build_context: drupal/web
+          pre-validation:
+            -run: cp -r ~/project/silta ~/project/drupal/
           codebase-build:
             - silta/drupal-composer-install
             - silta/npm-install-build
@@ -66,8 +68,25 @@ workflows:
           name: Next build & deploy
           context: silta_dev
           silta_config: silta/silta-next.yml
+          environment:
+            NEXT_PUBLIC_DRUPAL_BASE_URL=https://next4drupal-project.lndo.site
+            NEXT_IMAGE_DOMAIN=next4drupal-project.lndo.site
           codebase-build:
             # npm-install-build command is defined here https://github.com/wunderio/silta-circleci/blob/master/orb/commands/@npm.yml
+            - run:
+                name: Set environment variables 
+                command: |
+                  # Make sure release name is lowercase without special characters.
+                  branchname_lower="${CIRCLE_BRANCH,,}"
+                  release_name="${branchname_lower//[^[:alnum:]]/-}"
+                  release_name=`echo $release_name | sed -e s/-next//`
+                  # If name is too long, truncate it and append a hash
+                  if [ ${#release_name} -ge 35 ]; then
+                    release_name="$(printf "$release_name" | cut -c 1-34)$(printf "$release_name" | shasum -a 256 | cut -c 1-3 )"
+                  fi
+                  next_image_domain=`echo $release_name`.$CLUSTER_DOMAIN
+                  export NEXT_PUBLIC_DRUPAL_BASE_URL="https://${next_image_domain}"
+                  export NEXT_IMAGE_DOMAIN="${next_image_domain}"
             - silta/npm-install-build:
                 path: next
             - silta/build-docker-image:
