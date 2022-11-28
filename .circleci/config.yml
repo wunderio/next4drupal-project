@@ -30,7 +30,6 @@ workflows:
           name: Drupal build & deploy
           executor: cicd81
           drupal-root: drupal
-          nginx_build_context: drupal/web
           codebase-build:
             - run: cp -r ~/project/silta ~/project/drupal/
             - silta/drupal-composer-install
