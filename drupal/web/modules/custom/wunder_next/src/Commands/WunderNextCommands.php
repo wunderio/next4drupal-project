@@ -10,7 +10,6 @@ use Drupal\consumers\Entity\Consumer;
 
 /**
  * A Drush commandfile.
- *
  */
 class WunderNextCommands extends DrushCommands {
 
@@ -59,11 +58,12 @@ class WunderNextCommands extends DrushCommands {
         }
       }
       $account->save();
-    } catch (EntityStorageException $e) {
+    }
+    catch (EntityStorageException $e) {
       return new CommandError("Could not create a new user account with the name " . self::API_USER_NAME . ".");
     }
 
-    /** @var Consumer $consumer */
+    /** @var \Drupal\consumers\Entity\Consumer $consumer */
     $consumer = Consumer::create([
       'client_id' => 'next-drupal-consumer',
       'label' => 'Consumer for next-drupal',
@@ -85,7 +85,8 @@ class WunderNextCommands extends DrushCommands {
       }
 
       $consumer->save();
-    } catch (EntityStorageException $e) {
+    }
+    catch (EntityStorageException $e) {
       return new CommandError('Could not create a new consumer.');
     }
 
