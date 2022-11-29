@@ -14,5 +14,6 @@ referenceData:
   # The name of the environment from which reference data will be copied.
   referenceEnvironment: 'main'
 
-basicauth:
-  enabled: false
+nginx:
+  basicauth:
+    enabled: false
