@@ -111,6 +111,7 @@ workflows:
               ignore:
                 - production
                 - /dependabot\/.*/
+          requires: [ Drupal build & deploy ]
 
 
       - silta/frontend-build-deploy:
