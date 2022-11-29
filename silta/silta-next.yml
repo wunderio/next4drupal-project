@@ -10,3 +10,8 @@ services:
   node:
     exposedRoute: '/'
     port: 3000
+    env:
+      NEXT_PUBLIC_DRUPAL_BASE_URL: <|next_public_base_url|>
+      NEXT_IMAGE_DOMAIN: <|next_image_domain|>
+      DRUPAL_CLIENT_SECRET: <|drupal_client_secret|>
+      DRUPAL_CLIENT_ID: <|drupal_client_id|>
