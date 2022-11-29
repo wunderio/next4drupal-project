@@ -34,6 +34,7 @@ workflows:
             - run:
                 name: Set environment variables
                 command: |
+                  cp -r ~/project/silta ~/project/drupal/
                   # Make sure release name is lowercase without special characters.
                   branchname_lower="${CIRCLE_BRANCH,,}"
                   release_name="${branchname_lower//[^[:alnum:]]/-}"
@@ -44,7 +45,6 @@ workflows:
                   fi
                   next_domain=silta:demo@${release_name}.-next.$CIRCLE_PROJECT_REPONAME.$CLUSTER_DOMAIN
                   sed -i -e "s/<|next_domain|>/$next_domain/" silta/silta.yml
-                  cp -r ~/project/silta ~/project/drupal/
             - silta/drupal-composer-install
             - silta/npm-install-build
           context: silta_dev
