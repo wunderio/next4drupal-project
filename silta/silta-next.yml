@@ -7,6 +7,6 @@
 projectName: "next4drupal"
 
 services:
-  next:
+  node:
     exposedRoute: '/'
     port: 3000
