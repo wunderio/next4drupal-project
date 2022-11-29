@@ -102,7 +102,7 @@ workflows:
             - silta/build-docker-image:
                 dockerfile: 'silta/node.Dockerfile'
                 path: './next'
-                identifier: 'next '
+                identifier: 'next'
                 docker-hash-prefix: v1
           filters:
             branches:
