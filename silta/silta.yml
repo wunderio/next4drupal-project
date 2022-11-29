@@ -7,7 +7,6 @@
 php:
   drupalCoreVersion: "9"
   env:
-    D
     WUNDER_NEXT_FRONTEND_URL: <|next_domain|>
 
 # Configure reference data that will be used when creating new environments.
