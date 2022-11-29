@@ -35,7 +35,7 @@ class WunderNextCommands extends DrushCommands {
    */
   public function setupUserAndConsumer(array $options = ['secret' => '']) {
 
-    $secret = $options['secret'] ?: base64_encode(random_bytes('20'));
+    $secret = $options['secret'] ?: base64_encode(random_bytes(20));
 
     // Create a new user with the required role:
     $new_user = [
