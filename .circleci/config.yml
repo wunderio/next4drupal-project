@@ -101,9 +101,11 @@ workflows:
                   echo "export NEXT_IMAGE_DOMAIN=${next_domain}" >> "$BASH_ENV"
                   echo "export DRUPAL_CLIENT_SECRET=${drupal_client_secret}" >> "$BASH_ENV"
                   echo "export DRUPAL_CLIENT_ID=${drupal_client_id}" >> "$BASH_ENV"
-                  sed -i -e "s/<|next_public_base_url|>/$next_public_base_url/" silta/silta-next.yml
+                  escaped_next_public_base_url=$(printf '%s\n' "$next_public_base_url" | sed -e 's/[\/&]/\\&/g')
+                  escaped_drupal_client_secret=$(printf '%s\n' "$drupal_client_secret" | sed -e 's/[\/&]/\\&/g')
+                  sed -i -e "s/<|next_public_base_url|>/$escaped_next_public_base_url/" silta/silta-next.yml
                   sed -i -e "s/<|next_image_domain|>/$next_domain/" silta/silta-next.yml
-                  sed -i -e "s/<|drupal_client_secret|>/$drupal_client_secret/" silta/silta-next.yml
+                  sed -i -e "s/<|drupal_client_secret|>/$escaped_drupal_client_secret/" silta/silta-next.yml
                   sed -i -e "s/<|drupal_client_id|>/$drupal_client_id/" silta/silta-next.yml
             - silta/npm-install-build:
                 path: next
