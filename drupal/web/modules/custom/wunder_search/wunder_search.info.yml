@@ -1,0 +1,7 @@
+name: Wunder search
+type: module
+description: Provides functionality to index content using elasticsearch_helper
+package: Custom
+core_version_requirement: ^9 || ^10
+dependencies:
+  - elasticsearch_helper

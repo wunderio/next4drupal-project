@@ -21,6 +21,7 @@
         "drupal/admin_toolbar": "^3.1",
         "drupal/core-composer-scaffold": "^9.3",
         "drupal/core-recommended": "^9.3",
+        "drupal/elasticsearch_helper": "^7.0",
         "drupal/jsonapi_menu_items": "^1.2",
         "drupal/monolog": "^2.0",
         "drupal/next": "^1.6",
@@ -28,6 +29,7 @@
         "drupal/simplei": "^1.2",
         "drupal/warden": "^3.0@RC",
         "drush/drush": "^11.0",
+        "elasticsearch/elasticsearch": "^7.0",
         "vlucas/phpdotenv": "^5.4",
         "webflo/drupal-finder": "^1.2",
         "wunderio/drupal-ping": "^2.3"

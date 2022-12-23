@@ -1,0 +1,6 @@
+services:
+  wunder_search.normalizer.node_normalizer:
+    class: Drupal\wunder_search\Plugin\Normalizer\NodeNormalizer
+    tags:
+      - { name: normalizer, priority: 50 }
+    arguments: ['@entity_type.manager', '@entity_type.repository', '@entity_field.manager', '@config.factory', '@renderer', '@theme.manager', '@theme.initialization', '@account_switcher', '@string_translation']

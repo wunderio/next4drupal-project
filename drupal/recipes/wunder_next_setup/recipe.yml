@@ -4,6 +4,7 @@ description: "Enable needed modules to use next-drupal and add pathauto setup"
 type: 'Setup'
 recipes:
   - wunder_landing_pages
+  - wunder_search
 install:
   - next
   - next_jsonapi

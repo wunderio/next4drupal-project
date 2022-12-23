@@ -74,6 +74,7 @@ switch ($env) {
     $settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
     $settings['cache']['bins']['page'] = 'cache.backend.null';
     $settings['extension_discovery_scan_tests'] = FALSE;
+    $config['elasticsearch_helper.settings']['hosts'][0]['host'] = "elasticsearch";
     break;
 
   default:
@@ -91,6 +92,11 @@ switch ($env) {
  */
 if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings.local.php';
+}
+
+// Set Elasticsearch host in silta:
+if (getenv("SILTA_CLUSTER") && getenv('ELASTICSEARCH_HOST')) {
+  $config['elasticsearch_helper.settings']['hosts'][0]['host'] = getenv('ELASTICSEARCH_HOST');
 }
 
 // Silta cluster configuration overrides.

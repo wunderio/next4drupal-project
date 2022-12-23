@@ -106,41 +106,41 @@ services:
     services:
       image: drupalci/webdriver-chromedriver:production
       command: chromedriver --log-path=/tmp/chromedriver.log --verbose --whitelisted-ips=
-  # elasticsearch:
-  #   type: compose
-  #   services:
-  #     image: "docker.elastic.co/elasticsearch/elasticsearch:7.17.0"
-  #     command: "/bin/tini -- /usr/local/bin/docker-entrypoint.sh eswrapper"
-  #     user: elasticsearch
-  #     environment:
-  #       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
-  #       discovery.type: "single-node"
-  #       bootstrap.memory_lock: "true"
-  #       # Allow CORS requests.
-  #       http.cors.enabled: "true"
-  #       http.cors.allow-origin: "*"
-  #     ulimits:
-  #       memlock:
-  #         soft: "-1"
-  #         hard: "-1"
-  #     ports:
-  #       - "9200:9200"
-  #     volumes:
-  #       - esdata:/usr/share/elasticsearch/data
-  #   # Install ES plugins.
-  #   build_as_root:
-  #     - elasticsearch-plugin install analysis-icu analysis-ukrainian
-  #   volumes:
-  #     esdata:
-  #       driver: local
-  # kibana:
-  #   type: compose
-  #   services:
-  #     image: "docker.elastic.co/kibana/kibana:7.17.0"
-  #     command: "/bin/tini -- /usr/local/bin/kibana-docker"
-  #     user: kibana
-  #     ports:
-  #       - "5601:5601"
+  elasticsearch:
+   type: compose
+   services:
+     image: "docker.elastic.co/elasticsearch/elasticsearch:7.17.0"
+     command: "/bin/tini -- /usr/local/bin/docker-entrypoint.sh eswrapper"
+     user: elasticsearch
+     environment:
+       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+       discovery.type: "single-node"
+       bootstrap.memory_lock: "true"
+       # Allow CORS requests.
+       http.cors.enabled: "true"
+       http.cors.allow-origin: "*"
+     ulimits:
+       memlock:
+         soft: "-1"
+         hard: "-1"
+     ports:
+       - "9200:9200"
+     volumes:
+       - esdata:/usr/share/elasticsearch/data
+   # Install ES plugins.
+   build_as_root:
+     - elasticsearch-plugin install analysis-icu analysis-ukrainian
+   volumes:
+     esdata:
+       driver: local
+  kibana:
+   type: compose
+   services:
+     image: "docker.elastic.co/kibana/kibana:7.17.0"
+     command: "/bin/tini -- /usr/local/bin/kibana-docker"
+     user: kibana
+     ports:
+       - "5601:5601"
   mailhog:
     type: mailhog
     hogfrom:
@@ -149,10 +149,10 @@ services:
 proxy:
   mailhog:
     - mail.lndo.site
-  # elasticsearch:
-  #   - elasticsearch.lndo.site:9200
-  # kibana:
-  #   - kibana.lndo.site:5601
+  elasticsearch:
+    - elasticsearch.lndo.site:9200
+  kibana:
+    - kibana.lndo.site:5601
   node:
   # This value is used by the appserver service to connect to the frontend
   # so make sure that this value and the WUNDER_NEXT_FRONTEND_URL env var are

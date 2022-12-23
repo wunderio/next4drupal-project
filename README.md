@@ -1,13 +1,13 @@
 ## Next.js for Drupal template by Wunder
 
-This is a starter template for a decoupled website using the open- source [Next.js for Drupal](https://next-drupal.org/) 
+This is a starter template for a decoupled website using the open-source [Next.js for Drupal](https://next-drupal.org/) 
 by [Chapter Three](https://www.chapterthree.com) and contributors.
 
 It includes the codebase for both the Drupal backend and the corresponding Next.js frontend. 
 Some example content types and languages are included in the configuration to provide a working multilingual example out of the box, using the upcoming
 [Distributions and Recipes](https://www.drupal.org/about/core/strategic-initiatives-distributions-and-recipes) Drupal core initiative.
 
-This example is ready to be used together with the [Silta](https://wunderio.github.io/silta/) hosting system by [Wunder](https://www.wunder.io).
+This example is meant to be used together with the [Silta](https://wunderio.github.io/silta/) hosting system by [Wunder](https://www.wunder.io), but it can be used with any hosting system.
 
 ### Lando setup
 
@@ -23,7 +23,7 @@ Follow this guide to get backend and frontend up and running.
 
 All drupal code and configuration is in the `drupal` directory.
 All needed module dependencies have been added to the `composer.json` file.
-Some of the setup process is automated using [drupal recipes](https://www.drupal.org/project/distributions_recipes).
+Part of the setup process is automated using [drupal recipes](https://www.drupal.org/project/distributions_recipes).
 
 Follow these steps to get started:
 
@@ -32,8 +32,8 @@ Follow these steps to get started:
 3. Generate oauth keys using the command `lando generate-oauth-keys`. The keys will be created in the `drupal/oauth` directory.
 4. Install Drupal as usual. Use the standard installation profile. You can do it via the UI or using this command: `lando drush si --site-name="My great site name here"`.
 5. Run the `lando install-recipe wunder_next_setup` to set up all necessary modules, content types and configuration.
-6. You can now export your configuration.
-7. Create some content and translate it :-)
+6. Run `lando drush eshs` to set up elasticsearch indexes.
+6. You can now export your drupal configuration the usual way: `lando drush cex`.
 
 #### Next.js setup
 

@@ -1,0 +1,9 @@
+name: 'Wunder search'
+description: "Enable search integration with elasticsearch"
+type: 'Search'
+install:
+  - elasticsearch_helper
+  - wunder_search
+config:
+  import:
+    elasticsearch_helper: '*'

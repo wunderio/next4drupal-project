@@ -16,8 +16,8 @@ grumphp:
     phpcs:
       standard: ['phpcs.xml']
       run_on: '%grumphp.run_on_paths%'
-    php_stan:
-      run_on: '%grumphp.run_on_paths%'
+#    php_stan:
+#      run_on: '%grumphp.run_on_paths%'
     yaml_lint: ~
     json_lint: ~
     # PHPUnit will fail with 0 tests.
